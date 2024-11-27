@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import { RolesModel } from '../../config/models/roles.model';
 import { HttpException } from '../../filters/exception.filter';
 
@@ -46,6 +47,31 @@ export class CrudRolesService {
       throw new HttpException(404, 'Role not found');
     }
     return role;
+  }
+
+  async countRoles(): Promise<number> {
+    // Count the number of roles where deletedAt is null
+    const numberRoles = await RolesModel.count({
+      where: {
+        deletedAt: {
+          [Op.is]: null,
+        },
+      },
+    });
+
+    // Return the count of roles
+    return numberRoles;
+  }
+
+  async searchRoleByName(name: string) {
+    const role = await RolesModel.findOne({
+      where: {
+        name: {
+          [Op.like]: `%${name}%`,
+        },
+      },
+    });
+    return role ? role : {};
   }
 }
 

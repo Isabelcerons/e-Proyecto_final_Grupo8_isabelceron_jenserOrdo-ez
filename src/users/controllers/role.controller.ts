@@ -86,3 +86,34 @@ export const deleteRole = async (
     next(error);
   }
 };
+
+export const searchRoleByName = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const name = req.query.name as string;
+    const role = await crudRolesUseCase.getRoleByName(name);
+    if (role) {
+      res.status(200).json(role);
+    } else {
+      res.status(404).send();
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const countRoles = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const numberRoles = await crudRolesUseCase.countRoles();
+    res.status(200).json(numberRoles);
+  } catch (error) {
+    next(error);
+  }
+};

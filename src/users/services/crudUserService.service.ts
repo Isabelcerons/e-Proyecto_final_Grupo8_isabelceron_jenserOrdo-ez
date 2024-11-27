@@ -121,4 +121,24 @@ export class CrudUserService {
     }
     return user;
   }
+  async countUserRoles(userId: number): Promise<number> {
+    const count = await UserRolesModel.count({
+      where: {
+        userId,
+      },
+      include: [
+        {
+          model: RolesModel,
+          as: 'role',
+          where: {
+            deletedAt: {
+              [Op.is]: null,
+            },
+          },
+          required: true,
+        },
+      ],
+    });
+    return count;
+  }
 }

@@ -40,6 +40,16 @@ export class CrudRolesUseCase {
     const role = await this.crudRolesService.findById(id);
     return role;
   }
+
+  async countRoles(): Promise<object> {
+    return {
+      numberRoles: await this.crudRolesService.countRoles(),
+    };
+  }
+
+  async getRoleByName(name: string) {
+    return await this.crudRolesService.searchRoleByName(name);
+  }
 }
 
 export default CrudRolesUseCase;

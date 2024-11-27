@@ -5,10 +5,59 @@ import {
   createRole,
   updateRole,
   deleteRole,
+  countRoles,
+  searchRoleByName,
 } from './controllers/role.controller';
 
 const RoleRouter = Router();
-
+/**
+ * @swagger
+ * /roles/total-roles:
+ *   get:
+ *     summary: Get the total number of roles
+ *     tags: [Roles]
+ *     responses:
+ *       200:
+ *         description: The total number of roles
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 count:
+ *                   type: number
+ *                   example: 3
+ */
+RoleRouter.get('/total-roles', countRoles);
+/**
+ * @swagger
+ * /roles/search:
+ *   get:
+ *     summary: Search for a role by name
+ *     tags: [Roles]
+ *     parameters:
+ *       - in: query
+ *         name: name
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The name of the role to search for
+ *     responses:
+ *       200:
+ *         description: A role object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *       404:
+ *         description: Role not found
+ */
+RoleRouter.get('/search', searchRoleByName);
 /**
  * @swagger
  * tags:

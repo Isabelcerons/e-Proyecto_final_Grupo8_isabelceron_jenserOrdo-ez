@@ -5,6 +5,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
+  countUsersRoles,
 } from './controllers/user.controller';
 
 const UserRouter = Router();
@@ -151,5 +152,32 @@ UserRouter.patch('/', updateUser);
  *         description: User deleted
  */
 UserRouter.delete('/:id', deleteUser);
+
+/**
+ * @swagger
+ * /users/count-roles/{id}:
+ *   get:
+ *     summary: Get the total number of roles for a user
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: The total number of roles for a user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 count:
+ *                   type: number
+ *                   example: 2
+ */
+UserRouter.get('/count-roles/:id', countUsersRoles);
 
 export default UserRouter;

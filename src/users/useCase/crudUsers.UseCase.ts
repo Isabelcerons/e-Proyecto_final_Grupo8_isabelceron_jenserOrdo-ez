@@ -123,4 +123,11 @@ export class CrudUserUseCase {
 
     return transformedData;
   }
+
+  async countRolesUser(id: number): Promise<object> {
+    const numberRoles = await this.crudUserService.countUserRoles(id);
+    return {
+      count: numberRoles,
+    };
+  }
 }

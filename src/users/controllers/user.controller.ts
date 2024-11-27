@@ -86,3 +86,17 @@ export const deleteUser = async (
     next(error);
   }
 };
+
+export const countUsersRoles = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const id = parseInt(req.params.id);
+    const count = await crudUserUseCase.countRolesUser(id);
+    res.status(200).json(count);
+  } catch (error) {
+    next(error);
+  }
+};
