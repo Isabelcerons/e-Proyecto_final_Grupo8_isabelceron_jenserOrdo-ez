@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "mysql2": "^3.11.4",
@@ -7,9 +8,12 @@
     "sequelize": "^6.37.5",
     "sequelize-typescript": "^2.1.6",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.0",
     "@types/swagger-jsdoc": "^6.0.4",
@@ -24,13 +28,17 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-standard": "^4.1.0",
+    "globals": "^15.12.0",
+    "nodemon": "^3.1.7",
     "prettier": "^3.4.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.16.0"
   },
   "scripts": {
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint 'src/**/*.{js,ts}",
     "format": "prettier --write .",
-    "start": "ts-node src/server.ts"
+    "start": "node dist/server.js",
+    "dev": "nodemon --watch src --exec ts-node src/server.ts"
   }
 }

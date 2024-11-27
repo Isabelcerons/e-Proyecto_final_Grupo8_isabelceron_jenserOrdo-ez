@@ -1,7 +1,10 @@
 import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 import { UsersModel } from './models/users.model';
-import { resolve } from 'path';
+import { PeopleModel } from './models/people.model';
+import { RolesModel } from './models/roles.model';
+import { UserRolesModel } from './models/userRoles.model';
+import logger from '../logger';
 
 dotenv.config();
 
@@ -12,15 +15,15 @@ export const sequelize = new Sequelize({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   logging: false,
-  models: [UsersModel],
+  models: [UsersModel, PeopleModel, RolesModel, UserRolesModel],
   port: Number(process.env.DB_PORT),
 });
 
 (async () => {
   try {
     await sequelize.sync({ alter: true });
-    console.log('Base de datos sincronizada correctamente');
+    logger.info('Base de datos sincronizada correctamente');
   } catch (error) {
-    console.error('Error al sincronizar la base de datos:', error);
+    logger.error('Error al sincronizar la base de datos:', error);
   }
 })();
