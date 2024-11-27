@@ -3,6 +3,7 @@ import { RolesModel } from '../../config/models/roles.model';
 import { UserRolesModel } from '../../config/models/userRoles.model';
 import { UsersModel } from '../../config/models/users.model';
 import { HttpException } from '../../filters/exception.filter';
+import { Op } from 'sequelize';
 
 export class CrudUserService {
   async create(data: Partial<UsersModel>): Promise<number> {
@@ -20,7 +21,7 @@ export class CrudUserService {
     const existingUser = await UsersModel.findOne({
       where: {
         id: {
-          $ne: data.id,
+          [Op.ne]: data.id,
         },
       },
     });
@@ -40,18 +41,36 @@ export class CrudUserService {
 
   async findAll() {
     return await UsersModel.findAll({
+      where: {
+        deletedAt: {
+          [Op.is]: null,
+        },
+      },
       include: [
         {
           model: PeopleModel,
           as: 'people',
+          where: {
+            deletedAt: {
+              [Op.is]: null,
+            },
+          },
+          required: false,
         },
         {
           model: UserRolesModel,
           as: 'userRoles',
+          required: true,
           include: [
             {
               model: RolesModel,
               as: 'role',
+              where: {
+                deletedAt: {
+                  [Op.is]: null,
+                },
+              },
+              required: true,
             },
           ],
         },
@@ -60,19 +79,38 @@ export class CrudUserService {
   }
 
   async findById(id: number) {
-    const user = await UsersModel.findByPk(id, {
+    const user = await UsersModel.findOne({
+      where: {
+        id,
+        deletedAt: {
+          [Op.is]: null,
+        },
+      },
       include: [
         {
           model: PeopleModel,
           as: 'people',
+          where: {
+            deletedAt: {
+              [Op.is]: null,
+            },
+          },
+          required: false,
         },
         {
           model: UserRolesModel,
           as: 'userRoles',
+          required: true,
           include: [
             {
               model: RolesModel,
               as: 'role',
+              where: {
+                deletedAt: {
+                  [Op.is]: null,
+                },
+              },
+              required: true,
             },
           ],
         },
