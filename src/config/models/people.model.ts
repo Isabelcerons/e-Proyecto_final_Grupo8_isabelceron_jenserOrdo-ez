@@ -5,8 +5,6 @@ import {
   DataType,
   ForeignKey,
   BelongsTo,
-  CreatedAt,
-  UpdatedAt,
   DeletedAt,
 } from 'sequelize-typescript';
 import { UsersModel } from './users.model';
