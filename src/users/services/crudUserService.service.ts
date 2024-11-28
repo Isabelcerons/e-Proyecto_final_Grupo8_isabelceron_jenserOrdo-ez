@@ -122,6 +122,10 @@ export class CrudUserService {
     return user;
   }
   async countUserRoles(userId: number): Promise<number> {
+    const findUser = await UsersModel.findByPk(userId);
+    if (!findUser) {
+      throw new HttpException(404, 'User not found');
+    }
     const count = await UserRolesModel.count({
       where: {
         userId,

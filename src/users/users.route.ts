@@ -103,6 +103,8 @@ UserRouter.post('/', createUser);
  *           schema:
  *             type: object
  *             properties:
+ *               id:
+ *                 type: number
  *               email:
  *                 type: string
  *               isActive:
@@ -112,6 +114,8 @@ UserRouter.post('/', createUser);
  *               people:
  *                 type: object
  *                 properties:
+ *                   id:
+ *                     type: number
  *                   firstName:
  *                     type: string
  *                   secondName:
