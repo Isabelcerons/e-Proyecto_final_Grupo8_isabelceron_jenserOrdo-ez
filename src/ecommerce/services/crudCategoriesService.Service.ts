@@ -1,5 +1,5 @@
 import { CategoriesModel } from '../../config/models/categories.model';
-import { HttpException } from '../../filters/exception.filter';
+import { HttpException } from '../../middelwares/exception.filter';
 import { Op } from 'sequelize';
 
 export class CrudCategoriesService {

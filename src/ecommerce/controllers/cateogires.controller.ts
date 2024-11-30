@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { CategoryDto } from '../dtos/categories.dto';
-import CrudCategoriesUseCase from '../useCase/crudCategoriesUseCase.UseCase';
+import CrudCategoriesUseCase from '../infra/crudCategoriesUseCase.UseCase';
 
 const crudCategoriesUseCase = new CrudCategoriesUseCase();
 

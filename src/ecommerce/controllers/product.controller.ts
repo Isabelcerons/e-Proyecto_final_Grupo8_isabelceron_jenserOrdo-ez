@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ProductDto } from '../dtos/product.dto';
-import CrudProductUseCase from '../useCase/crudProductUseCase.useCase';
+import CrudProductUseCase from '../infra/crudProductUseCase.useCase';
 
 const crudProductUseCase = new CrudProductUseCase();
 

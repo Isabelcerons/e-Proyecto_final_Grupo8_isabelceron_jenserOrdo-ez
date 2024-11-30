@@ -2,7 +2,7 @@ import { ProductModel } from '../../config/models/product.model';
 import { ProductCategoriesModel } from '../../config/models/productCategories.model';
 import { CategoriesModel } from '../../config/models/categories.model';
 import { ProductHistoryPriceModel } from '../../config/models/productHistoryPrice.model';
-import { HttpException } from '../../filters/exception.filter';
+import { HttpException } from '../../middelwares/exception.filter';
 import { Op, WhereOptions } from 'sequelize';
 
 export class CrudProductService {

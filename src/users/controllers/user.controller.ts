@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { CreateOrUpdateUserDto } from '../dtos/user.dto';
-import { CrudUserUseCase } from '../useCase/crudUsers.UseCase';
+import { CrudUserUseCase } from '../infra/crudUsers.UseCase';
 
 const crudUserUseCase = new CrudUserUseCase();
 

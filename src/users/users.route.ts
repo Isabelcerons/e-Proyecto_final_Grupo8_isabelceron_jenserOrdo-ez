@@ -7,6 +7,7 @@ import {
   deleteUser,
   countUsersRoles,
 } from './controllers/user.controller';
+import { AuthMiddleware } from '../middelwares/auth.middleware';
 
 const UserRouter = Router();
 
@@ -27,7 +28,7 @@ const UserRouter = Router();
  *       200:
  *         description: A list of users
  */
-UserRouter.get('/', getUsers);
+UserRouter.get('/', AuthMiddleware, getUsers);
 
 /**
  * @swagger
@@ -46,7 +47,7 @@ UserRouter.get('/', getUsers);
  *       200:
  *         description: A single user
  */
-UserRouter.get('/:id', getUserById);
+UserRouter.get('/:id', AuthMiddleware, getUserById);
 
 /**
  * @swagger
@@ -136,7 +137,7 @@ UserRouter.post('/', createUser);
  *       200:
  *         description: User updated
  */
-UserRouter.patch('/', updateUser);
+UserRouter.patch('/', AuthMiddleware, updateUser);
 
 /**
  * @swagger
@@ -155,7 +156,7 @@ UserRouter.patch('/', updateUser);
  *       204:
  *         description: User deleted
  */
-UserRouter.delete('/:id', deleteUser);
+UserRouter.delete('/:id', AuthMiddleware, deleteUser);
 
 /**
  * @swagger
@@ -182,6 +183,6 @@ UserRouter.delete('/:id', deleteUser);
  *                   type: number
  *                   example: 2
  */
-UserRouter.get('/count-roles/:id', countUsersRoles);
+UserRouter.get('/count-roles/:id', AuthMiddleware, countUsersRoles);
 
 export default UserRouter;

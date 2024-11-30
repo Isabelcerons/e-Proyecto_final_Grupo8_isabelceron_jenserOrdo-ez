@@ -2,7 +2,7 @@ import { PeopleModel } from '../../config/models/people.model';
 import { RolesModel } from '../../config/models/roles.model';
 import { UserRolesModel } from '../../config/models/userRoles.model';
 import { UsersModel } from '../../config/models/users.model';
-import { HttpException } from '../../filters/exception.filter';
+import { HttpException } from '../../middelwares/exception.filter';
 import { Op } from 'sequelize';
 
 export class CrudUserService {
@@ -144,5 +144,22 @@ export class CrudUserService {
       ],
     });
     return count;
+  }
+
+  async findUserByEmail(email: string) {
+    const user = await UsersModel.findOne({
+      where: {
+        email,
+        deletedAt: {
+          [Op.is]: null,
+        },
+      },
+    });
+
+    if (!user) {
+      throw new HttpException(404, 'User not found');
+    }
+
+    return user;
   }
 }

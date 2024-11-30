@@ -1,6 +1,6 @@
 import { Op } from 'sequelize';
 import { RolesModel } from '../../config/models/roles.model';
-import { HttpException } from '../../filters/exception.filter';
+import { HttpException } from '../../middelwares/exception.filter';
 
 export class CrudRolesService {
   async create(data: Partial<RolesModel>): Promise<number> {

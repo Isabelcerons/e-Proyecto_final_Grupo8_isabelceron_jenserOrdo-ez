@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { CreateOrUpdateRoleDto } from '../dtos/role.dto';
-import CrudRolesUseCase from '../useCase/crudRolesUseCase.useCase';
+import CrudRolesUseCase from '../infra/crudRolesUseCase.useCase';
 
 const crudRolesUseCase = new CrudRolesUseCase();
 
