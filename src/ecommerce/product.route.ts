@@ -5,6 +5,9 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  checkProductExist,
+  findMostExpensiveProduct,
+  getAveragePrice,
 } from './controllers/product.controller';
 
 const ProductRouter = Router();
@@ -15,11 +18,35 @@ const ProductRouter = Router();
  *   get:
  *     summary: Get all products
  *     tags: [Products]
+ *     parameters:
+ *       - in: query
+ *         name: price
+ *         schema:
+ *           type: number
+ *         description: Filter products by price
  *     responses:
  *       200:
  *         description: List of all products
  */
 ProductRouter.get('/', getProducts);
+
+/**
+ * @swagger
+ * /products/most-expensive:
+ *   get:
+ *     summary: Find the most expensive products
+ *     tags: [Products]
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Limit the number of products returned
+ *     responses:
+ *       200:
+ *         description: List of most expensive products
+ */
+ProductRouter.get('/most-expensive', findMostExpensiveProduct);
 
 /**
  * @swagger
@@ -41,6 +68,46 @@ ProductRouter.get('/', getProducts);
  *         description: Product not found
  */
 ProductRouter.get('/:id', getProductById);
+
+/**
+ * @swagger
+ * /products/{id}/exists-history:
+ *   get:
+ *     summary: Check if a product has a price history
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The product ID
+ *     responses:
+ *       200:
+ *         description: Product exists
+ *       404:
+ *         description: Product not found
+ */
+ProductRouter.get('/:id/exists-history', checkProductExist);
+
+/**
+ * @swagger
+ * /products/{id}/average-price:
+ *   get:
+ *     summary: Get the average price of a product
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The product ID
+ *     responses:
+ *       200:
+ *         description: Average price of the product
+ */
+ProductRouter.get('/:id/average-price', getAveragePrice);
 
 /**
  * @swagger

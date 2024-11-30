@@ -10,7 +10,9 @@ export const getProducts = async (
   next: NextFunction,
 ) => {
   try {
-    const products = await crudProductUseCase.findAllProducts();
+    const price = req.query.price;
+
+    const products = await crudProductUseCase.findAllProducts(Number(price));
     res.status(200).json(products);
   } catch (error) {
     next(error);
@@ -81,6 +83,50 @@ export const deleteProduct = async (
     res.status(200).json({
       message: 'Product deleted successfully',
       status: 200,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const checkProductExist = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const productId = parseInt(req.params.id);
+    const product = await crudProductUseCase.checkProductExist(productId);
+    res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const findMostExpensiveProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const limit = Number(req.query.limit);
+
+    const products = await crudProductUseCase.findMostExpensiveProduct(limit);
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAveragePrice = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const productId = parseInt(req.params.id);
+    const averagePrice = await crudProductUseCase.getAveragePrice(productId);
+    res.status(200).json({
+      averagePrice,
     });
   } catch (error) {
     next(error);

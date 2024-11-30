@@ -71,8 +71,8 @@ export class CrudProductUseCase {
     await this.crudProductService.delete(productId);
   }
 
-  async findAllProducts() {
-    const products = await this.crudProductService.findAll();
+  async findAllProducts(price?: number) {
+    const products = await this.crudProductService.findAll(price);
     return products.map((product) => {
       const productJson = product.toJSON();
       return {
@@ -97,6 +97,23 @@ export class CrudProductUseCase {
       ),
       productCategories: undefined,
     };
+  }
+
+  async checkProductExist(productId: number) {
+    const product =
+      await this.crudProductService.chekProductHistoryPrice(productId);
+    return product;
+  }
+
+  async findMostExpensiveProduct(limit: number) {
+    const product =
+      await this.crudProductService.findMostExpensiveProducts(limit);
+    return product;
+  }
+
+  async getAveragePrice(productId: number) {
+    const product = await this.crudProductService.getAveragePrice(productId);
+    return product;
   }
 }
 
