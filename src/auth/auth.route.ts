@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { signIn } from './controllers/auth.controller';
+import { signIn, initData } from './controllers/auth.controller';
+import { AuthMiddleware } from '../middelwares/auth.middleware';
 
 const SignRouters = Router();
 
@@ -63,7 +64,24 @@ const SignRouters = Router();
  *       500:
  *         description: Some server error
  */
-
 SignRouters.post('/signin', signIn);
+
+/**
+ * @swagger
+ * /auth/initdata:
+ *   get:
+ *     summary: Get initial data for authenticated user
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Initial data for authenticated user
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Some server error
+ */
+SignRouters.get('/initdata', AuthMiddleware, initData);
 
 export default SignRouters;
