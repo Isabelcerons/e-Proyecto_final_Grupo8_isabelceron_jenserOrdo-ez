@@ -124,7 +124,7 @@ export class CrudProductService {
   async getAveragePrice(productId: number): Promise<number> {
     const prices = await ProductHistoryPriceModel.findAll({
       where: { productId },
-      attributes: ['newPrice'],
+      attributes: ['newPrice', 'oldPrice'],
     });
 
     if (prices.length === 0) {
@@ -135,6 +135,7 @@ export class CrudProductService {
       (sum, record) => sum + record.newPrice + record.oldPrice,
       0,
     );
+    console.log(total);
     return total / (prices.length * 2);
   }
 
