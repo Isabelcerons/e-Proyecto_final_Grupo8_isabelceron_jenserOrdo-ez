@@ -131,8 +131,11 @@ export class CrudProductService {
       throw new HttpException(404, 'No price history found for this product');
     }
 
-    const total = prices.reduce((sum, record) => sum + record.newPrice, 0);
-    return total / prices.length;
+    const total = prices.reduce(
+      (sum, record) => sum + record.newPrice + record.oldPrice,
+      0,
+    );
+    return (total / prices.length) * 2;
   }
 
   async chekProductHistoryPrice(productId: number) {
