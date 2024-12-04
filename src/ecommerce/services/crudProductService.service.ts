@@ -135,7 +135,7 @@ export class CrudProductService {
       (sum, record) => sum + record.newPrice + record.oldPrice,
       0,
     );
-    return (total / prices.length) * 2;
+    return total / (prices.length * 2);
   }
 
   async chekProductHistoryPrice(productId: number) {
